@@ -34,7 +34,7 @@ def main():
                     },
                     "hive-site": {
                         "javax.jdo.option.ConnectionDriverName": "com.microsoft.sqlserver.jdbc.SQLServerDriver",
-                        "javax.jdo.option.ConnectionURL":        "jdbc:sqlserver://%s;database=%s;encrypt=true;trustServerCertificate=true;create=false;loginTimeout=300".format(server, database),
+                        "javax.jdo.option.ConnectionURL":        "jdbc:sqlserver://%s;database=%s;encrypt=true;trustServerCertificate=true;create=false;loginTimeout=300".format(METASTORE_SQL_SERVER, METASTORE_SQL_DATABASE),
                         "javax.jdo.option.ConnectionUserName":   METASTORE_SQL_USERNAME,
                         "javax.jdo.option.ConnectionPassword":   METASTORE_SQL_PASSWORD,
                     },
@@ -51,6 +51,29 @@ def main():
                         "database-name":          AMBARI_SQL_DATABASE,
                         "database-user-name":     AMBARI_SQL_USERNAME,
                         "database-user-password": AMBARI_SQL_PASSWORD,
+                    },
+                    "admin-properties": {
+                        "audit_db_name": METASTORE_SQL_DATABASE,
+                        "audit_db_user": METASTORE_SQL_USERNAME,
+                        "audit_db_password": METASTORE_SQL_PASSWORD,
+                        "db_name": METASTORE_SQL_DATABASE,
+                        "db_user": METASTORE_SQL_USERNAME,
+                        "db_password": METASTORE_SQL_PASSWORD,
+                        "db_host": METASTORE_SQL_SERVER,
+                        "db_root_user": "",
+                        "db_root_password": ""
+                    },
+                    "ranger-admin-site": {
+                        "ranger.jpa.jdbc.url": "jdbc:sqlserver://%s;databaseName==%s".format(METASTORE_SQL_SERVER, METASTORE_SQL_DATABASE)
+                    },
+                    "ranger-env": {
+                        "ranger_privelege_user_jdbc_url": "jdbc:sqlserver://%s;databaseName==%s".format(METASTORE_SQL_SERVER, METASTORE_SQL_DATABASE)
+                    },
+                    "ranger-hive-security": {
+                        "ranger.plugin.hive.service.name": RANGER_HIVE_PLUGIN_SERVICE_NAME
+                    },
+                    "ranger-yarn-security": {
+                        "ranger.plugin.yarn.service.name": RANGER_HIVE_PLUGIN_SERVICE_NAME
                     }
                 }
             ),
